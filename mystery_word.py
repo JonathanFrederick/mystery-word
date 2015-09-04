@@ -62,7 +62,7 @@ def main():
     """
     Runs when the program is called from the command-line.
 
-    1. Prompts the user for a difficulty level
+            1. Prompts the user for a difficulty level
     2. Sets up the game based upon the difficulty level
     3. Performs the game loop, consisting of:
        a. Printing the word in progress, using _ for unguessed letters
@@ -73,13 +73,18 @@ def main():
     5. Giving the user the option to play again
     """
     # TODO
-    print("Welcome to Mystery Word!")
-    while True:
-        diff_choice = input("Please choose a difficulty level: Easy, Medium, or Hard\n>>>").lower()
-        if diff_choice in ('easy', 'e', 'medium', 'med', 'm', 'hard', 'h'):
-            break
-        else:
-            print("Not a valid input")
+    # print("Welcome to Mystery Word!")
+    # while True:
+    #     diff_choice = input("Please choose a difficulty level: Easy, Medium, or Hard\n>>>").lower()
+    #     if diff_choice in ('easy', 'e', 'medium', 'med', 'm', 'hard', 'h'):
+    #         break
+    #     else:
+    #         print("Not a valid input")
+
+    with open ('/usr/share/dict/words') as f:
+        print(f.read().split())
+
+
 
 
 if __name__ == '__main__':
