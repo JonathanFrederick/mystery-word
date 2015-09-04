@@ -73,7 +73,14 @@ def main():
     5. Giving the user the option to play again
     """
     # TODO
-    
+    print("Welcome to Mystery Word!")
+    while True:
+        diff_choice = input("Please choose a difficulty level: Easy, Medium, or Hard\n>>>").lower()
+        if diff_choice in ('easy', 'e', 'medium', 'med', 'm', 'hard', 'h'):
+            break
+        else:
+            print("Not a valid input")
+
 
 if __name__ == '__main__':
     main()
