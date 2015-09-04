@@ -1,3 +1,4 @@
+import random
 
 def easy_words(word_list):
     """
@@ -36,7 +37,7 @@ def random_word(word_list):
     """
     Returns a random word from the word list.
     """
-    # TODO
+    return random.choice(word_list)
     pass
 
 def display_word(word, guesses):
@@ -68,7 +69,7 @@ def main():
     Runs when the program is called from the command-line.
 
             1. Prompts the user for a difficulty level
-    2. Sets up the game based upon the difficulty level
+            2. Sets up the game based upon the difficulty level
     3. Performs the game loop, consisting of:
        a. Printing the word in progress, using _ for unguessed letters
        b. Printing the number of guesses remaining
@@ -89,11 +90,11 @@ def main():
     diff_choice = "h"
     with open ('/usr/share/dict/words') as f:
         if diff_choice in ('e', 'easy'):
-            print(easy_words(f.read().split()))
+            print(random_word(easy_words(f.read().split())))
         elif diff_choice in ('h', 'hard'):
-            print(hard_words(f.read().split()))
+            print(random_word(hard_words(f.read().split())))
         else:
-            print(medium_words(f.read().split()))
+            print(random_word(medium_words(f.read().split())))
 
 
 
