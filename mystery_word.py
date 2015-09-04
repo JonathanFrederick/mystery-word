@@ -4,31 +4,33 @@ def easy_words(word_list):
     Returns a filtered version of the word list with words only containing
     4-6 characters.
     """
-
-    return("GOT TO EASY")
-    # TODO
-    pass
-
+    easy_list = []
+    for word in word_list:
+        if len(word) < 7 and len(word) > 3:
+            easy_list.append(word)
+    return(easy_list)
 
 def medium_words(word_list):
     """
     Returns a filtered version of the word list with words only containing
     6-8 characters.
     """
-    # TODO
-    return("GOT TO MED")
-    pass
-
+    med_list = []
+    for word in word_list:
+        if len(word) < 9 and len(word) > 5:
+            med_list.append(word)
+    return(med_list)
 
 def hard_words(word_list):
     """
     Returns a filtered version of the word list with words only containing
     8+ characters.
     """
-    # TODO
-    return("GOT TO HARD")
-    pass
-
+    hard_list = []
+    for word in word_list:
+        if len(word) > 8:
+            hard_list.append(word)
+    return(hard_list)
 
 def random_word(word_list):
     """
@@ -36,7 +38,6 @@ def random_word(word_list):
     """
     # TODO
     pass
-
 
 def display_word(word, guesses):
     """
@@ -85,6 +86,7 @@ def main():
     #     else:
     #         print("Not a valid input")
 
+    diff_choice = "h"
     with open ('/usr/share/dict/words') as f:
         if diff_choice in ('e', 'easy'):
             print(easy_words(f.read().split()))
