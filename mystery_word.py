@@ -38,7 +38,6 @@ def random_word(word_list):
     Returns a random word from the word list.
     """
     return random.choice(word_list)
-    pass
 
 def display_word(word, guesses):
     """
@@ -52,7 +51,16 @@ def display_word(word, guesses):
     and d, this function should return 'B _ _ B A _ D'.
     """
     # TODO
-    pass
+    display = ''
+    for letter in word:
+        if letter in guesses:
+            display += letter.upper()
+        else:
+            display += '_'
+        if len(display) < len(word)*2-1:
+            display += ' '
+    return display
+
 
 
 def is_word_complete(word, guesses):
@@ -87,14 +95,17 @@ def main():
     #     else:
     #         print("Not a valid input")
 
-    diff_choice = "h"
+    diff_choice = "e"
     with open ('/usr/share/dict/words') as f:
         if diff_choice in ('e', 'easy'):
-            print(random_word(easy_words(f.read().split())))
+            mys_word = random_word(easy_words(f.read().split()))
         elif diff_choice in ('h', 'hard'):
-            print(random_word(hard_words(f.read().split())))
+            mys_word = random_word(hard_words(f.read().split()))
         else:
-            print(random_word(medium_words(f.read().split())))
+            mys_word = random_word(medium_words(f.read().split()))
+
+    guesses = ['a']
+    print(display_word(mys_word, guesses))
 
 
 
