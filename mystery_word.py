@@ -29,7 +29,7 @@ def hard_words(word_list):
     """
     hard_list = []
     for word in word_list:
-        if len(word) > 8:
+        if len(word) > 7:
             hard_list.append(word)
     return(hard_list)
 
@@ -61,15 +61,16 @@ def display_word(word, guesses):
             display += ' '
     return display
 
-
-
 def is_word_complete(word, guesses):
     """
     Returns True if the list of guesses covers every letter in the word,
     otherwise returns False.
     """
     # TODO
-    pass
+    for letter in word:
+        if letter not in guesses:
+            return False
+    return True
 
 
 def main():
