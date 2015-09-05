@@ -87,26 +87,60 @@ def main():
     4. Finishing the game and displaying whether the user has won or lost
     5. Giving the user the option to play again
     """
-    # TODO
-    # print("Welcome to Mystery Word!")
-    # while True:
-    #     diff_choice = input("Please choose a difficulty level: Easy, Medium, or Hard\n>>>").lower()
-    #     if diff_choice in ('easy', 'e', 'medium', 'med', 'm', 'hard', 'h'):
-    #         break
-    #     else:
-    #         print("Not a valid input")
+    again = True
+    while again:
+        print("Welcome to Mystery Word!")
+        while True:
+            diff_choice = input("Please choose a difficulty level: Easy, Medium, or Hard\n>>> ").lower()
+            if diff_choice in ('easy', 'e', 'medium', 'med', 'm', 'hard', 'h'):
+                break
+            else:
+                print("Not a valid input")
 
-    diff_choice = "e"
-    with open ('/usr/share/dict/words') as f:
-        if diff_choice in ('e', 'easy'):
-            mys_word = random_word(easy_words(f.read().split()))
-        elif diff_choice in ('h', 'hard'):
-            mys_word = random_word(hard_words(f.read().split()))
-        else:
-            mys_word = random_word(medium_words(f.read().split()))
+        #diff_choice = "e"
+        with open ('/usr/share/dict/words') as f:
+            if diff_choice in ('e', 'easy'):
+                mys_word = random_word(easy_words(f.read().split()))
+            elif diff_choice in ('h', 'hard'):
+                mys_word = random_word(hard_words(f.read().split()))
+            else:
+                mys_word = random_word(medium_words(f.read().split()))
 
-    guesses = ['a']
-    print(display_word(mys_word, guesses))
+        guesses = []
+        for i in range(8):
+            #display word
+            print("Your word is ", display_word(mys_word, guesses), "\nYou have ", str(8-i), "of 8 turns left")
+            if i > 0:
+                print("You have guessed", end=" ")
+                for j in guesses:
+                    print(j, end = " ")
+                print('')
+            #get guesses
+            while True:
+                guess = input("Please choose a letter\n>>> ")
+                if guess in guesses:
+                    print("You have already guessed that letter")
+                elif len(guess) == 1 and guess.isalpha():
+                    guesses.append(guess)
+                    break
+                else:
+                    print("Ivalid input")
+            if (is_word_complete(mys_word, guesses)):
+                print("Congratulations! You guessed the word! This word was", mys_word.upper())
+                break
+        if not is_word_complete(mys_word, guesses):
+            print("Sorry, you did not guess the word, it was", mys_word.upper())
+        while True:
+            again_choice = input("Would you like to play again? (Yes or No)").lower()
+            if again_choice in ('yes', 'y', 'no', 'n'):
+                break
+            else:
+                print("Not a valid input")
+        if again_choice in ('no', 'n'):
+            again = False
+
+
+#    print(display_word(mys_word, guesses))
 
 
 
