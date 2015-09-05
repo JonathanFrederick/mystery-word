@@ -76,9 +76,8 @@ def is_word_complete(word, guesses):
 def main():
     """
     Runs when the program is called from the command-line.
-
-            1. Prompts the user for a difficulty level
-            2. Sets up the game based upon the difficulty level
+    1. Prompts the user for a difficulty level
+    2. Sets up the game based upon the difficulty level
     3. Performs the game loop, consisting of:
        a. Printing the word in progress, using _ for unguessed letters
        b. Printing the number of guesses remaining
@@ -97,7 +96,6 @@ def main():
             else:
                 print("Not a valid input")
 
-        #diff_choice = "e"
         with open ('/usr/share/dict/words') as f:
             if diff_choice in ('e', 'easy'):
                 mys_word = random_word(easy_words(f.read().split()))
@@ -107,14 +105,18 @@ def main():
                 mys_word = random_word(medium_words(f.read().split()))
 
         guesses = []
-        for i in range(8):
+        wrong = 0
+        #turn loop
+        while wrong < 8:
             #display word
-            print("Your word is ", display_word(mys_word, guesses), "\nYou have ", str(8-i), "of 8 turns left")
-            if i > 0:
+            print("Your word is ", display_word(mys_word, guesses), "\nYou have ", str(8-wrong), "of 8 wrong guesses left")
+            if wrong > 0:
                 print("You have guessed", end=" ")
                 for j in guesses:
                     print(j, end = " ")
                 print('')
+            else:
+                wrong += 1
             #get guesses
             while True:
                 guess = input("Please choose a letter\n>>> ")
@@ -124,12 +126,18 @@ def main():
                     guesses.append(guess)
                     break
                 else:
-                    print("Ivalid input")
+                    print("Invalid input")
+            #count wrong guesses
+            if mys_word.find(guess) == -1:
+                wrong += 1
+            #check for win
             if (is_word_complete(mys_word, guesses)):
                 print("Congratulations! You guessed the word! This word was", mys_word.upper())
                 break
+        #check for loss
         if not is_word_complete(mys_word, guesses):
             print("Sorry, you did not guess the word, it was", mys_word.upper())
+        #ask to play again
         while True:
             again_choice = input("Would you like to play again? (Yes or No)").lower()
             if again_choice in ('yes', 'y', 'no', 'n'):
@@ -138,13 +146,6 @@ def main():
                 print("Not a valid input")
         if again_choice in ('no', 'n'):
             again = False
-
-
-#    print(display_word(mys_word, guesses))
-
-
-
-
 
 if __name__ == '__main__':
     main()
