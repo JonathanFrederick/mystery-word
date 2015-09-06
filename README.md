@@ -4,7 +4,18 @@
 
 Implement the game of Mystery Word.
 
-## Tasks
+## How to Use
+1. Open Terminal
+2. Navigate to directory with mystery_word.py
+3. Run ```python3 mystery_word.py```
+4. Follow instructions in game
+5. Enjoy!
+
+## Content
+Mystery Word is a game in which the player guesses a word one letter at a time.  The player begins by choosing a difficulty level between Easy, Medium and Hard.  The game is won by guessing all the letters in the word or lost by making more than eight wrong guesses.
+
+
+## Assignment Tasks
 ```markdown
 * [ ] Blank slate
   * [ ] Create a GitHub repo called `mystery-word`
