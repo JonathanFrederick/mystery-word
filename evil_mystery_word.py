@@ -33,6 +33,22 @@ def hard_words(word_list):
             hard_list.append(word)
     return(hard_list)
 
+def evil_word_list(word_list, guesses, mys_word):
+    list_dict = {}
+    for word in word_list:
+        display_str = display_word(mys_word, guesses)
+        if display_str == display_word(word, guesses):
+            if display_str in list_dict:
+                list_dict[display_str].append(word)
+            else:
+                list_dict[display_str] = list(word)
+    longest_list = display_str
+    for list_ in list_dict:
+        if len(list_) > len(list_dict[longest_list]):
+            longest_list = list_
+    print(list_dict[longest_list])
+    return list_dict[longest_list]
+
 def random_word(word_list):
     """
     Returns a random word from the word list.
@@ -102,14 +118,15 @@ def main():
                 mys_word_list = hard_words(f.read().split())
             else:
                 mys_word_list = medium_words(f.read().split())
-
         mys_word = random_word(mys_word_list)
         guesses = []
         wrong = -1
         #turn loop
         while wrong < 8:
             #display word
-            print("Your word is ", display_word(mys_word, guesses))
+            mys_word_list = evil_word_list(mys_word_list, guesses, mys_word)
+            mys_word = random_word(mys_word_list)
+            print("Your word is ", display_word(mys_word, guesses), mys_word)
             if wrong > -1:
                 print("You have guessed", end=" ")
                 for j in guesses:
