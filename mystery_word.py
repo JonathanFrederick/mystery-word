@@ -105,12 +105,12 @@ def main():
                 mys_word = random_word(medium_words(f.read().split()))
 
         guesses = []
-        wrong = 0
+        wrong = -1
         #turn loop
         while wrong < 8:
             #display word
-            print("Your word is ", display_word(mys_word, guesses), "\nYou have ", str(8-wrong), "of 8 wrong guesses left")
-            if wrong > 0:
+            print("Your word is ", display_word(mys_word, guesses))
+            if wrong > -1:
                 print("You have guessed", end=" ")
                 for j in guesses:
                     print(j, end = " ")
@@ -119,7 +119,7 @@ def main():
                 wrong += 1
             #get guesses
             while True:
-                guess = input("Please choose a letter\n>>> ")
+                guess = input("Please choose a letter, you have " + str(8-wrong) + " of 8 wrong guesses left\n>>> ")
                 if guess in guesses:
                     print("You have already guessed that letter")
                 elif len(guess) == 1 and guess.isalpha():

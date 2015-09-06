@@ -50,7 +50,6 @@ def display_word(word, guesses):
     For example, if the word is BOMBARD and the letters guessed are a, b,
     and d, this function should return 'B _ _ B A _ D'.
     """
-    # TODO
     display = ''
     for letter in word:
         if letter in guesses:
@@ -66,7 +65,6 @@ def is_word_complete(word, guesses):
     Returns True if the list of guesses covers every letter in the word,
     otherwise returns False.
     """
-    # TODO
     for letter in word:
         if letter not in guesses:
             return False
@@ -96,21 +94,23 @@ def main():
             else:
                 print("Not a valid input")
 
+        #open dictionary word list
         with open ('/usr/share/dict/words') as f:
             if diff_choice in ('e', 'easy'):
-                mys_word = random_word(easy_words(f.read().split()))
+                mys_word_list = easy_words(f.read().split())
             elif diff_choice in ('h', 'hard'):
-                mys_word = random_word(hard_words(f.read().split()))
+                mys_word_list = hard_words(f.read().split())
             else:
-                mys_word = random_word(medium_words(f.read().split()))
+                mys_word_list = medium_words(f.read().split())
 
+        mys_word = random_word(mys_word_list)
         guesses = []
-        wrong = 0
+        wrong = -1
         #turn loop
         while wrong < 8:
             #display word
-            print("Your word is ", display_word(mys_word, guesses), "\nYou have ", str(8-wrong), "of 8 wrong guesses left")
-            if wrong > 0:
+            print("Your word is ", display_word(mys_word, guesses))
+            if wrong > -1:
                 print("You have guessed", end=" ")
                 for j in guesses:
                     print(j, end = " ")
@@ -119,7 +119,7 @@ def main():
                 wrong += 1
             #get guesses
             while True:
-                guess = input("Please choose a letter\n>>> ")
+                guess = input("Please choose a letter, you have " + str(8-wrong) + " of 8 wrong guesses left\n>>> ")
                 if guess in guesses:
                     print("You have already guessed that letter")
                 elif len(guess) == 1 and guess.isalpha():
@@ -128,12 +128,14 @@ def main():
                 else:
                     print("Invalid input")
             #count wrong guesses
+
             if mys_word.find(guess) == -1:
                 wrong += 1
             #check for win
             if (is_word_complete(mys_word, guesses)):
                 print("Congratulations! You guessed the word! This word was", mys_word.upper())
                 break
+
         #check for loss
         if not is_word_complete(mys_word, guesses):
             print("Sorry, you did not guess the word, it was", mys_word.upper())
