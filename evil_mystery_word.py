@@ -33,21 +33,21 @@ def hard_words(word_list):
             hard_list.append(word)
     return(hard_list)
 
-def evil_word_list(word_list, guesses, mys_word):
+def evil_word_list(word_list, guesses, disp_word):
     list_dict = {}
+    display_str = ""
     for word in word_list:
-        display_str = display_word(mys_word, guesses)
-        if display_str == display_word(word, guesses):
-            if display_str in list_dict:
-                list_dict[display_str].append(word)
-            else:
-                list_dict[display_str] = list(word)
+#        print(list_dict)
+#        display_str = display_word(mys_word, guesses)
+        if disp_word == display_word(word, guesses):
+            if display_str not in list_dict:
+                list_dict[display_str] = []
+            list_dict[display_str].append(word)
     longest_list = display_str
     for list_ in list_dict:
         if len(list_) > len(list_dict[longest_list]):
             longest_list = list_
-    print(list_dict[longest_list])
-    return list_dict[longest_list]
+    return list_dict[longest_list], longest_list
 
 def random_word(word_list):
     """
@@ -76,12 +76,14 @@ def display_word(word, guesses):
             display += ' '
     return display
 
-def is_word_complete(word, guesses):
+def is_word_complete(word_list, guesses):
     """
     Returns True if the list of guesses covers every letter in the word,
     otherwise returns False.
     """
-    for letter in word:
+    if len(word_list) > 1:
+        return False
+    for letter in word_list[0]:
         if letter not in guesses:
             return False
     return True
@@ -120,13 +122,13 @@ def main():
                 mys_word_list = medium_words(f.read().split())
         mys_word = random_word(mys_word_list)
         guesses = []
+        old_disp = display_word(mys_word, guesses)
         wrong = -1
         #turn loop
         while wrong < 8:
             #display word
-            mys_word_list = evil_word_list(mys_word_list, guesses, mys_word)
-            mys_word = random_word(mys_word_list)
-            print("Your word is ", display_word(mys_word, guesses), mys_word)
+#            print(mys_word_list)
+            print("Your word is ", old_disp)
             if wrong > -1:
                 print("You have guessed", end=" ")
                 for j in guesses:
@@ -146,16 +148,18 @@ def main():
                     print("Invalid input")
             #count wrong guesses
 
+            mys_word_list, new_disp = evil_word_list(mys_word_list, guesses, old_disp)
             if mys_word.find(guess) == -1:
                 wrong += 1
+
             #check for win
-            if (is_word_complete(mys_word, guesses)):
+            if (is_word_complete(mys_word_list, guesses)):
                 print("Congratulations! You guessed the word! This word was", mys_word.upper())
                 break
 
         #check for loss
-        if not is_word_complete(mys_word, guesses):
-            print("Sorry, you did not guess the word, it was", mys_word.upper())
+        if not is_word_complete(mys_word_list, guesses):
+            print("Sorry, you did not guess the word, it was", random_word(mys_word_list).upper())
         #ask to play again
         while True:
             again_choice = input("Would you like to play again? (Yes or No)").lower()
