@@ -77,17 +77,14 @@ def display_word(word, guesses):
             display += ' '
     return display
 
-def is_word_complete(word_list, guesses):
+def is_word_complete(disp_word):
     """
     Returns True if the list of guesses covers every letter in the word,
     otherwise returns False.
     """
-    if len(word_list) > 1:
-        return False
-    for letter in word_list[0]:
-        if letter not in guesses:
-            return False
-    return True
+    if disp_word.find('_') == -1:
+        return True
+    return False
 
 
 def main():
@@ -155,12 +152,12 @@ def main():
             old_disp = new_disp
 
             #check for win
-            if (is_word_complete(mys_word_list, guesses)):
-                print("Congratulations! You guessed the word! This word was", mys_word.upper())
+            if (is_word_complete(old_disp)):
+                print("Congratulations! You guessed the word! This word was", mys_word_list[0].upper())
                 break
 
         #check for loss
-        if not is_word_complete(mys_word_list, guesses):
+        if not is_word_complete(old_disp):
             print("Sorry, you did not guess the word, it was", random_word(mys_word_list).upper())
         #ask to play again
         while True:
