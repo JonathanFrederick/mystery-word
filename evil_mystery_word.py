@@ -35,18 +35,19 @@ def hard_words(word_list):
 
 def evil_word_list(word_list, guesses, disp_word):
     list_dict = {}
-    display_str = ""
+#    display_str =
     for word in word_list:
 #        print(list_dict)
-#        display_str = display_word(mys_word, guesses)
-        if disp_word == display_word(word, guesses):
-            if display_str not in list_dict:
-                list_dict[display_str] = []
-            list_dict[display_str].append(word)
+        display_str = display_word(word, guesses)
+#        if disp_word == display_str:
+        if display_str not in list_dict:
+            list_dict[display_str] = []
+        list_dict[display_str].append(word)
     longest_list = display_str
     for list_ in list_dict:
         if len(list_) > len(list_dict[longest_list]):
             longest_list = list_
+    print(list_dict, "\n", longest_list)
     return list_dict[longest_list], longest_list
 
 def random_word(word_list):
@@ -151,6 +152,7 @@ def main():
             mys_word_list, new_disp = evil_word_list(mys_word_list, guesses, old_disp)
             if mys_word.find(guess) == -1:
                 wrong += 1
+            old_disp = new_disp
 
             #check for win
             if (is_word_complete(mys_word_list, guesses)):
